@@ -84,6 +84,9 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              const SizedBox(
+                height: 20,
+              ),
               const Text(
                 "Have a beautiful day!",
                 style: TextStyle(

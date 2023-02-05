@@ -18,7 +18,10 @@ class DialogBox extends StatelessWidget {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       backgroundColor: Colors.blue[100],
-      title: const Text("Add a new task"),
+      title: const Text(
+        "Add a new task",
+        style: TextStyle(color: Color.fromARGB(255, 6, 54, 136)),
+      ),
       content: SizedBox(
         height: 150,
         child: Center(
