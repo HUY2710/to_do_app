@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:todo_app/data/database.dart';
 import 'package:todo_app/util/dialog_box.dart';
 import 'package:todo_app/util/todo_tile.dart';
@@ -54,6 +55,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat.yMMMEd().format(now);
     return Scaffold(
       backgroundColor: Colors.blue[100],
       appBar: AppBar(
@@ -75,28 +78,58 @@ class _HomePageState extends State<HomePage> {
               ),
             )),
       ),
-      body: ListView.builder(
-          itemCount: db.data.length,
-          itemBuilder: (context, index) {
-            return ToDoTile(
-              taskName: db.data[index][0],
-              taskCompleted: db.data[index][1],
-              onChanged: (value) {
-                setState(() {
-                  db.data[index][1] = !db.data[index][1];
-                });
-                db.updateDataBase();
-              },
-              onTap: () {
-                setState(() {
-                  setState(() {
-                    db.data.removeAt(index);
-                  });
-                  db.updateDataBase();
-                });
-              },
-            );
-          }),
+      body: SingleChildScrollView(
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "Have a beautiful day!",
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 24,
+                    color: Color.fromARGB(255, 6, 54, 136)),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(formattedDate,
+                  style: const TextStyle(
+                      fontSize: 16, color: Color.fromARGB(255, 6, 54, 136))),
+              const SizedBox(
+                height: 10,
+              ),
+              ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: db.data.length,
+                  itemBuilder: (context, index) {
+                    return ToDoTile(
+                      taskName: db.data[index][0],
+                      taskCompleted: db.data[index][1],
+                      onChanged: (value) {
+                        setState(() {
+                          db.data[index][1] = !db.data[index][1];
+                        });
+                        db.updateDataBase();
+                      },
+                      onTap: () {
+                        setState(() {
+                          setState(() {
+                            db.data.removeAt(index);
+                          });
+                          db.updateDataBase();
+                        });
+                      },
+                    );
+                  }),
+              const SizedBox(
+                height: 60,
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

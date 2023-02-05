@@ -16,6 +16,7 @@ class DialogBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       backgroundColor: Colors.blue[100],
       title: const Text("Add a new task"),
       content: SizedBox(
@@ -25,6 +26,7 @@ class DialogBox extends StatelessWidget {
             children: [
               TextFormField(
                 controller: controller,
+                maxLines: 2,
                 decoration: InputDecoration(
                     hintText: "Add a new task",
                     border: OutlineInputBorder(
@@ -37,11 +39,14 @@ class DialogBox extends StatelessWidget {
                 height: 5,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   MyButton(
                     text: "Save",
                     onPressed: onSave,
+                  ),
+                  const SizedBox(
+                    width: 10,
                   ),
                   MyButton(
                     text: "Cancel",
